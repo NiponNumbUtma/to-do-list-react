@@ -1,12 +1,12 @@
+import To_do from "./pages/To_do";
+
 function App() {
   return (
-    <div>
-      <h1 className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-8xl font-extrabold text-transparent">
-        We love tailwind 💙
-      </h1>
-      <p className="p-4 pl-2">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      </p>
+    <div className="bg-[#800] text-white">
+     <main className="flex flex-col h-screen items-center justify-center">
+      <h1 className="text-4xl font-extrabold">To do list</h1>
+      <To_do></To_do>
+     </main>
     </div>
   );
 }
