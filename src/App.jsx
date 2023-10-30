@@ -1,12 +1,45 @@
-import To_do from "./pages/To_do";
+import { useEffect, useState } from "react";
+import Card  from "./components/Card";
+import LetterSelector from "./components/LetterSelector";
+import axios from "axios";
 
 function App() {
+
+  const [meals, setMeals] = useState([])
+
+  const getMeals = (letter = 'a') => {
+    axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+    .then((res) => {
+      if (res.data.meals) {
+        setMeals(res.data.meals)
+      } else {
+        setMeals([])
+      }
+    })
+  }
+
+  useEffect(() =>{
+    getMeals()
+  }, [])
+
   return (
-    <div className="bg-[#800] text-white">
-     <main className="flex flex-col h-screen items-center justify-center">
-      <h1 className="text-4xl font-extrabold">To do list</h1>
-      <To_do></To_do>
-     </main>
+    <div >
+      <LetterSelector onSelect={(letter) => getMeals(letter)}/>
+      <main className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+        {
+          meals.map((meal) => (
+            
+            <Card 
+            key={meal.idMeal}
+            strMeal={meal.strMeal}
+            strInstructions={meal.strInstructions}
+            strMealThumb={meal.strMealThumb}
+        />
+
+          ))
+        }
+      </main>
     </div>
   );
 }
